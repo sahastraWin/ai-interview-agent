@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="https://ai-interview-agent-git-main-sahastrawins-projects.vercel.app/">
+  <a href="https://ai-interview-agent-two-tawny.vercel.app/">
     <img src="https://img.shields.io/badge/🌐 Live Demo-Visit Now-brightgreen?style=for-the-badge" alt="Live Demo"/>
   </a>
   &nbsp;
