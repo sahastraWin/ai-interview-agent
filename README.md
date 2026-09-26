@@ -1,4 +1,4 @@
-﻿<h1 align="center">
+<h1 align="center">
   <img src="https://img.shields.io/badge/InterviewIQ-AI%20Interview%20Agent-4CAF50?style=for-the-badge&logo=robot&logoColor=white" alt="InterviewIQ Banner"/>
 </h1>
 
@@ -39,37 +39,41 @@
 
 ## 🏗️ System Architecture
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                     CLIENT (React + Vite)                       │
-│                   Hosted on: Vercel 🟢                           │
-│                                                                  │
-│  ┌──────────┐  ┌────────────┐  ┌────────────┐  ┌────────────┐  │
-│  │  Home    │  │ Interview  │  │  History   │  │  Pricing   │  │
-│  │  Page    │  │   Page     │  │   Page     │  │   Page     │  │
-│  └──────────┘  └────────────┘  └────────────┘  └────────────┘  │
-│                        Redux Store                               │
-└──────────────────────┬──────────────────────────────────────────┘
-                       │ HTTP / REST API (Axios)
-                       ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                  SERVER (Express + Node.js)                      │
-│                   Hosted on: Render 🟢                           │
-│                                                                  │
-│  ┌──────────┐  ┌────────────┐  ┌────────────┐  ┌────────────┐  │
-│  │  Auth    │  │ Interview  │  │  Payment   │  │   User     │  │
-│  │  Route   │  │   Route    │  │   Route    │  │   Route    │  │
-│  └──────────┘  └────────────┘  └────────────┘  └────────────┘  │
-│         JWT Middleware   │   Multer (File Upload)                │
-└──────┬──────────────┬───┴──────────┬────────────────────────────┘
-       │              │              │
-       ▼              ▼              ▼
-┌───────────┐  ┌────────────┐  ┌────────────┐
-│ MongoDB   │  │ OpenRouter │  │  Razorpay  │
-│  Atlas 🍃  │  │  AI  🤖    │  │  Payment 💳│
-└───────────┘  └────────────┘  └────────────┘
+```mermaid
+flowchart TB
+    subgraph CLIENT["🖥️ CLIENT (React + Vite) — Hosted on Vercel 🟢"]
+        direction LR
+        Home["Home<br/>Page"]
+        Interview["Interview<br/>Page"]
+        History["History<br/>Page"]
+        Pricing["Pricing<br/>Page"]
+        Redux[["Redux Store"]]
+        Home --- Redux
+        Interview --- Redux
+        History --- Redux
+        Pricing --- Redux
+    end
 
-     Firebase Auth 🔥 (Handled on the Client Side)
+    CLIENT -->|"HTTP / REST API (Axios)"| SERVER
+
+    subgraph SERVER["⚙️ SERVER (Express + Node.js) — Hosted on Render 🟢"]
+        direction LR
+        Auth["Auth<br/>Route"]
+        InterviewRoute["Interview<br/>Route"]
+        Payment["Payment<br/>Route"]
+        User["User<br/>Route"]
+        Mid[["JWT Middleware · Multer (File Upload)"]]
+        Auth --- Mid
+        InterviewRoute --- Mid
+        Payment --- Mid
+        User --- Mid
+    end
+
+    SERVER --> Mongo[("🍃 MongoDB Atlas")]
+    SERVER --> OpenRouter[("🤖 OpenRouter AI")]
+    SERVER --> Razorpay[("💳 Razorpay Payment")]
+
+    CLIENT -.->|"Handled client-side"| Firebase(["🔥 Firebase Auth"])
 ```
 
 ---
@@ -118,9 +122,9 @@
 
 ```
 AI-Interview-Agent/
-├── 📂 client/                      # React Frontend
-│   └── 📂 src/
-│       ├── 📂 components/
+├── client/                      # React Frontend
+│   └── src/
+│       ├── components/
 │       │   ├── AuthModel.jsx       # Login Modal
 │       │   ├── Navbar.jsx          # Navigation Bar
 │       │   ├── Footer.jsx          # Footer
@@ -128,42 +132,42 @@ AI-Interview-Agent/
 │       │   ├── Step2Interview.jsx  # Active Interview Step
 │       │   ├── Step3Report.jsx     # Results/Report Step
 │       │   └── Timer.jsx           # Countdown Timer
-│       ├── 📂 pages/
+│       ├── pages/
 │       │   ├── Home.jsx            # Landing Page
 │       │   ├── Auth.jsx            # Authentication Page
 │       │   ├── InterviewPage.jsx   # Main Interview Flow
 │       │   ├── InterviewHistory.jsx
 │       │   ├── InterviewReport.jsx
 │       │   └── Pricing.jsx
-│       ├── 📂 redux/
+│       ├── redux/
 │       │   ├── store.js
 │       │   └── userSlice.js
-│       ├── 📂 utils/
+│       ├── utils/
 │       │   └── firebase.js         # Firebase Config
 │       └── App.jsx
 │
-└── 📂 server/                      # Express Backend
-    ├── 📂 config/
+└── server/                      # Express Backend
+    ├── config/
     │   ├── connectDb.js            # MongoDB Connection
     │   └── token.js                # JWT Helper
-    ├── 📂 controllers/
+    ├── controllers/
     │   ├── auth.controller.js
     │   ├── interview.controller.js
     │   ├── payment.controller.js
     │   └── user.controller.js
-    ├── 📂 middlewares/
+    ├── middlewares/
     │   ├── isAuth.js               # JWT Verification
     │   └── multer.js               # File Upload Config
-    ├── 📂 models/
+    ├── models/
     │   ├── user.model.js
     │   ├── interview.model.js
     │   └── payment.model.js
-    ├── 📂 routes/
+    ├── routes/
     │   ├── auth.route.js
     │   ├── interview.route.js
     │   ├── payment.route.js
     │   └── user.route.js
-    ├── 📂 services/
+    ├── services/
     │   ├── openRouter.service.js   # AI Integration
     │   └── razorpay.service.js     # Payment Integration
     └── index.js                    # Server Entry Point
