@@ -40,40 +40,37 @@
 ## 🏗️ System Architecture
 
 ```mermaid
-flowchart TB
-    subgraph CLIENT["🖥️ CLIENT (React + Vite) — Hosted on Vercel 🟢"]
-        direction LR
-        Home["Home<br/>Page"]
-        Interview["Interview<br/>Page"]
-        History["History<br/>Page"]
-        Pricing["Pricing<br/>Page"]
-        Redux[["Redux Store"]]
-        Home --- Redux
-        Interview --- Redux
-        History --- Redux
-        Pricing --- Redux
+flowchart TD
+    subgraph CLIENT["CLIENT - React + Vite - Hosted on Vercel"]
+        Home["Home Page"]
+        InterviewPg["Interview Page"]
+        History["History Page"]
+        Pricing["Pricing Page"]
+        Redux["Redux Store"]
+        Home --> Redux
+        InterviewPg --> Redux
+        History --> Redux
+        Pricing --> Redux
     end
 
-    CLIENT -->|"HTTP / REST API (Axios)"| SERVER
+    CLIENT -->|"HTTP / REST API - Axios"| SERVER
 
-    subgraph SERVER["⚙️ SERVER (Express + Node.js) — Hosted on Render 🟢"]
-        direction LR
-        Auth["Auth<br/>Route"]
-        InterviewRoute["Interview<br/>Route"]
-        Payment["Payment<br/>Route"]
-        User["User<br/>Route"]
-        Mid[["JWT Middleware · Multer (File Upload)"]]
-        Auth --- Mid
-        InterviewRoute --- Mid
-        Payment --- Mid
-        User --- Mid
+    subgraph SERVER["SERVER - Express + Node.js - Hosted on Render"]
+        Auth["Auth Route"]
+        InterviewRoute["Interview Route"]
+        Payment["Payment Route"]
+        User["User Route"]
+        Mid["JWT Middleware / Multer"]
+        Auth --> Mid
+        InterviewRoute --> Mid
+        Payment --> Mid
+        User --> Mid
     end
 
-    SERVER --> Mongo[("🍃 MongoDB Atlas")]
-    SERVER --> OpenRouter[("🤖 OpenRouter AI")]
-    SERVER --> Razorpay[("💳 Razorpay Payment")]
-
-    CLIENT -.->|"Handled client-side"| Firebase(["🔥 Firebase Auth"])
+    SERVER --> Mongo["MongoDB Atlas"]
+    SERVER --> OpenRouter["OpenRouter AI"]
+    SERVER --> Razorpay["Razorpay Payment"]
+    CLIENT --> Firebase["Firebase Auth (client-side)"]
 ```
 
 ---
