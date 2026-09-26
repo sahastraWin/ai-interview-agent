@@ -352,7 +352,7 @@ npm run dev   # http://localhost:5173
 ---
 
 <p align="center">
-  Made with ❤️ by <a href="https://github.com/sahastraWin"><strong>Jeet Saha</strong></a>
+  Made with ❤️ by <a href="https://github.com/sahastraWin"><strong>Sahastrajeet Hardaha</strong></a>
   <br/>
   <sub>⭐ Star this repo if you found it helpful!</sub>
 </p>
